@@ -1,0 +1,21 @@
+{
+    "name": "movie-quiz-server",
+    "version": "1.0.0",
+    "description": "영화 포스터 퀴즈 게임 백엔드 서버",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.1",
+        "express": "^5.1.0",
+        "mysql2": "^3.14.4",
+        "nodemon": "^3.1.10"
+    }
+}

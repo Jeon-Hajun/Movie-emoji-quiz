@@ -1,0 +1,285 @@
+/* ===============================
+   Leaderboard Page
+   File: src/screens/leaderboard.css
+   =============================== */
+
+:root {
+    --page-bg: #cfe0d1;
+    --canvas-bg: #ffffff;
+    --accent: #f5f7fb;
+    --text: #1f2937;
+    --muted: #e9ecef;
+    --primary: #111827;
+    --secondary: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    min-height: 100vh; /* 최소 뷰포트 높이 보장 */
+    margin: 0;
+    background: var(--page-bg) !important; /* HTML과 body에도 배경색 강제 적용 */
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo',
+        'Malgun Gothic', 'Noto Sans KR', sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    width: 100vw; /* 전체 뷰포트 너비 */
+    background: var(--page-bg) !important; /* 배경색 강제 적용 */
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    position: relative;
+}
+
+.page--leaderboard {
+    background: var(--page-bg) !important; /* 리더보드 페이지 전체에 배경색 강제 적용 */
+    min-height: 100vh !important; /* 최소 뷰포트 높이 */
+    height: auto; /* 내용에 따라 높이 자동 조정 */
+    width: 100vw !important; /* 전체 뷰포트 너비 */
+    position: relative;
+    overflow-x: hidden; /* 수평 스크롤 방지 */
+}
+
+.canvas {
+    width: clamp(760px, 92vw, 1100px);
+    max-width: calc(100% - 32px);
+    height: auto; /* 고정 높이 대신 내용에 맞춰 자동 조정 */
+    background: var(--canvas-bg);
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    padding: 20px 36px 40px; /* 적절한 패딩으로 조정 */
+    display: flex;
+    flex-direction: column; /* Flexbox로 변경하여 더 예측 가능하게 */
+    gap: 16px; /* 간격을 줄여서 공간 확보 */
+    position: relative;
+    overflow: visible !important; /* 내용이 잘리지 않도록 */
+}
+
+.canvas--leaderboard {
+    background: var(--canvas-bg); /* 모든 영역에 배경색 적용 */
+    height: auto; /* 내용에 맞춰 자동 높이 조정 */
+}
+
+.title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+}
+
+.sub {
+    margin: 8px 0 0;
+    color: #6b7280;
+    font-size: 16px;
+    text-align: center;
+}
+
+.leaderboard-header {
+    text-align: center;
+}
+
+/* 새로고침 섹션 */
+.refresh-section {
+    display: flex;
+    justify-content: center;
+}
+
+/* 리더보드 테이블 */
+.leaderboard-table {
+    display: flex;
+    flex-direction: column;
+    /* 고정 높이 제거하고 내용에 맞춰 자동 조정 */
+    overflow: visible !important; /* 내용이 잘리지 않도록 */
+    margin-bottom: 20px; /* 버튼과의 간격 */
+}
+
+.error-message,
+.loading-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}
+
+.error-message p,
+.loading-message p {
+    margin: 0 0 16px;
+    font-size: 16px;
+}
+
+.table {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden !important; /* 스크롤 완전 제거 */
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    padding: 10px 20px; /* 패딩을 더 줄여서 10등까지 확실히 보이도록 */
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+}
+
+.row.header {
+    background: #f8fafc;
+    border-top: none;
+    font-weight: 800;
+    color: #374151;
+    font-size: 16px;
+}
+
+.row.podium {
+    background: #fff8e1;
+    border-left: 3px solid #f59e0b;
+}
+
+.row.empty {
+    justify-content: center;
+    text-align: center;
+    color: #6b7280;
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+}
+
+.empty-message p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.col.rank {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.medal {
+    font-size: 20px;
+}
+
+.rank-number {
+    font-weight: 700;
+    font-size: 18px;
+    color: #111827; /* 4등 이후 검은색 */
+}
+
+.col.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 16px;
+    color: #111827;
+}
+
+.col.score {
+    text-align: right;
+    font-weight: 800;
+    font-size: 18px;
+    color: #111827;
+}
+
+/* 사용하지 않는 스타일들 제거됨 */
+
+/* 스크롤바 완전 제거 */
+.leaderboard-table::-webkit-scrollbar,
+.table::-webkit-scrollbar {
+    display: none;
+}
+
+.leaderboard-table,
+.table {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* 버튼 */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 0; /* 적절한 패딩으로 조정 */
+    /* margin-top 제거 - 이게 버튼을 멀어지게 하는 원인 */
+}
+
+.btn {
+    min-width: 140px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.06s ease, opacity 0.18s ease, background 0.18s ease;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn--primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    opacity: 0.92;
+}
+
+.btn--secondary {
+    background: var(--secondary);
+    color: #111827;
+}
+
+.btn--secondary:hover {
+    background: #dfe3e7;
+}
+
+.btn--small {
+    min-width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .row {
+        grid-template-columns: 60px 1fr 100px;
+        padding: 12px 16px;
+    }
+    
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .medal {
+        font-size: 16px;
+    }
+    
+    .rank-number {
+        font-size: 16px;
+    }
+}

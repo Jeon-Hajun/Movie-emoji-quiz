@@ -1,0 +1,294 @@
+/* ===============================
+   Score Registration Page
+   File: src/screens/score-registration.css
+   =============================== */
+
+:root {
+    --page-bg: #cfe0d1;
+    --canvas-bg: #ffffff;
+    --accent: #f5f7fb;
+    --text: #1f2937;
+    --muted: #e9ecef;
+    --primary: #111827;
+    --secondary: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo',
+        'Malgun Gothic', 'Noto Sans KR', sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--page-bg);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.canvas {
+    width: 800px;
+    max-width: calc(100% - 32px);
+    min-height: 600px;
+    background: var(--canvas-bg);
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    padding: 32px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 24px;
+    position: relative;
+}
+
+.canvas--score-registration {
+    background: linear-gradient(180deg, var(--accent), #fff 25%, #fff 75%, var(--accent));
+}
+
+.title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+}
+
+.sub {
+    margin: 8px 0 0;
+    color: #6b7280;
+    font-size: 16px;
+    text-align: center;
+}
+
+.score-header {
+    text-align: center;
+}
+
+/* 내 결과 카드 */
+.mycard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 16px;
+    border: 1px dashed #e5e7eb;
+    border-radius: 16px;
+    background: #fafafa;
+}
+
+.stat {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.stat .label {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.stat .value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.stat.highlight {
+    background: #111827;
+    color: #fff;
+    border: none;
+}
+
+.stat.highlight .label {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat.highlight .value.big {
+    font-size: 24px;
+    color: #fff;
+}
+
+/* 등록 폼 */
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.reg-form {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 닉네임 입력 영역 수평 정렬 */
+.nickname-input-row {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    width: 100%;
+}
+
+.nickname-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    margin-bottom: 8px;
+}
+
+.nickname-input-container {
+    flex: 1;
+}
+
+.nickname-register-btn {
+    height: 52px; /* 입력칸보다 조금 더 높게 */
+    width: 150px; /* 너비도 조금 더 넓게 */
+    padding: 0 20px;
+    white-space: nowrap;
+    box-sizing: border-box; /* 패딩과 보더 포함한 크기 계산 */
+}
+
+.input-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.nick-input {
+    width: 100%;
+    height: 48px; /* 버튼과 같은 높이로 고정 */
+    padding: 0 20px; /* 상하 패딩 제거하고 좌우만 유지 */
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px; /* 폰트 크기 조정 */
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    background: #fff;
+    color: #111827;
+    font-weight: 500;
+    box-sizing: border-box; /* 패딩과 보더 포함한 크기 계산 */
+}
+
+.nick-input:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.15);
+}
+
+.message {
+    margin: 8px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.message.error {
+    color: #dc2626;
+}
+
+.message.success {
+    color: #059669;
+}
+
+/* 버튼 */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 8px;
+}
+
+.btn {
+    width: 120px; /* 고정 너비 */
+    height: 40px; /* 고정 높이 */
+    padding: 0; /* 패딩 제거 */
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 14px; /* 폰트 크기 조정 */
+    cursor: pointer;
+    transition: transform 0.06s ease, opacity 0.18s ease, background 0.18s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn--primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    opacity: 0.92;
+}
+
+.btn--primary.btn--large {
+    width: 140px; /* 고정 너비 */
+    height: 45px; /* 고정 높이 */
+    padding: 0; /* 패딩 제거 */
+    font-size: 14px;
+}
+
+.btn--secondary {
+    background: var(--secondary);
+    color: #111827;
+}
+
+.btn--secondary:hover {
+    background: #dfe3e7;
+}
+
+.btn--ghost {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.btn--ghost:hover {
+    background: #f9fafb;
+    color: #374151;
+}
+
+@media (max-width: 600px) {
+    .mycard {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .reg-form {
+        max-width: 100%;
+    }
+    
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

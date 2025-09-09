@@ -1,0 +1,219 @@
+/* ===============================
+   Emoji Movie Quiz - Home Screen
+   File: src/screens/home.css
+   =============================== */
+
+/* ===== Theme & Base ===== */
+:root {
+    --page-bg: #cfe0d1; /* 바깥 배경 */
+    --canvas-bg: #ffffff; /* 캔버스(패널) */
+    --accent: #f5f7fb; /* 캔버스 그라데이션 */
+    --text: #1f2937; /* 제목/텍스트 */
+    --muted: #e9ecef; /* 보조 색 */
+    --primary: #111827; /* 진한 버튼 */
+    --secondary: #e5e7eb; /* 연한 버튼 */
+}
+
+* {
+    box-sizing: border-box;
+}
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo',
+        'Malgun Gothic', 'Noto Sans KR', sans-serif;
+}
+
+/* ===== Page Layout ===== */
+.page {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--page-bg);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+.page--home {
+}
+
+/* ===== Canvas (메인 패널) ===== */
+.canvas {
+    width: 960px;
+    max-width: calc(100% - 32px);
+    height: 560px;
+    background: var(--canvas-bg);
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    padding: 28px;
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* 헤더 / 중앙영역 / 버튼 */
+    gap: 18px;
+    position: relative;
+}
+
+/* 티켓 느낌의 배경 & 가장자리 펀칭 */
+.canvas--home {
+    background: radial-gradient(circle at 20px 20px, transparent 8px, var(--canvas-bg) 9px) top left / 40px 40px,
+        radial-gradient(circle at 20px 20px, transparent 8px, var(--canvas-bg) 9px) top right / 40px 40px,
+        radial-gradient(circle at 20px 20px, transparent 8px, var(--canvas-bg) 9px) bottom left / 40px 40px,
+        radial-gradient(circle at 20px 20px, transparent 8px, var(--canvas-bg) 9px) bottom right / 40px 40px,
+        linear-gradient(180deg, var(--accent), #fff 28%, #fff 72%, var(--accent));
+    background-repeat: no-repeat;
+}
+.canvas--home::after {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px dashed #e5e7eb;
+    border-radius: 14px;
+    pointer-events: none;
+}
+
+/* ===== Header ===== */
+.home-head {
+    text-align: center;
+}
+.title {
+    margin: 0;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+}
+.sub {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+/* ===== 중앙 표지 이미지 ===== */
+.hero-wrap {
+    display: grid;
+    place-items: center;
+    padding: 8px 0 12px;
+    min-height: 220px; /* 헤더/버튼 사이 안정감 */
+}
+.hero-photo {
+    width: 760px; /* 기본 가로 크기 */
+    max-width: min(88vw, 900px); /* 뷰포트 따라 축소 */
+    height: 260px; /* 와이드 비율 느낌 */
+    object-fit: cover; /* 꽉 채우되 잘릴 수 있음 */
+    border-radius: 16px;
+    display: block;
+    background: #f3f4f6; /* 로딩 시 대체 배경 */
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+@media (max-width: 480px) {
+    .hero-photo {
+        height: 200px;
+    }
+}
+
+/* ===== CTA Buttons ===== */
+.cta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding-top: 2px;
+}
+.btn {
+    min-width: 168px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.06s ease, opacity 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.btn:active {
+    transform: translateY(1px);
+}
+.btn--lg {
+    padding: 12px 22px;
+}
+.btn--primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(17, 24, 39, 0.15);
+}
+.btn--primary:hover {
+    opacity: 0.92;
+}
+.btn--secondary {
+    background: var(--secondary);
+    color: #111827;
+}
+.btn--secondary:hover {
+    background: #dfe3e7;
+}
+
+/* ===== Help Modal ===== */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.15s ease;
+}
+.modal {
+    width: 560px;
+    max-width: calc(100% - 32px);
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: popIn 0.16s ease;
+}
+.modal-title {
+    margin: 0;
+    padding: 16px 20px 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #111;
+}
+.modal-body {
+    padding: 12px 20px 0;
+    color: #222;
+    line-height: 1.6;
+    overflow: auto;
+}
+.help-list {
+    padding-left: 18px;
+    margin: 4px 0 16px;
+}
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    padding: 16px 20px 20px;
+    gap: 8px;
+    border-top: 1px solid #eee;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes popIn {
+    from {
+        transform: translateY(4px) scale(0.985);
+        opacity: 0.96;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
