@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS quiz (
 -- 점수 기록 테이블 생성 (리더보드용) - 모든 기록 저장
 CREATE TABLE IF NOT EXISTS score (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-    score INT NOT NULL
-    record_number INT NOT NULL
+    name VARCHAR(50) NOT NULL,
+    score INT NOT NULL,
+    record_number INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_score_score (score DESC),
     INDEX idx_score_name (name),
